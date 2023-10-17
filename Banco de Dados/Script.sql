@@ -21,7 +21,8 @@ VALUES
 
 select * from cliente;
 select * from cliente where CPF_Cliente = '01402503699';
-update cliente set CPF_Cliente = '02502603504' where CPF_Cliente = '025.026.035-05';
+update cliente set Nome_Cliente = 'João', Email_Cliente = 'j@j.com', Telefone_Cliente = '88881111' 
+where CPF_Cliente = '02502603504';
 delete from cliente where CPF_Cliente = '02504209853';
 
 /*criando, inserinfo, atualizando  delenado as informações dos contatos*/
@@ -40,15 +41,17 @@ VALUES
     ('Reserva 3',  'olá, gostaria de ter informações sobre reservas 3', '02504209853');
 
 select * from contato;
-update contato set Assunto = 'Reserva 4', Mensagem ='bla bla bla bla' where fk_Cliente_CPF_Cliente = '02504209853';
-delete from contato where fk_Cliente_CPF_Cliente = '02502603504';
+select * from contato where fk_Cliente_CPF_Cliente = '02502603504';
+update contato set Assunto = 'Reserva 4', Mensagem ='bla bla bla bla' 
+where fk_Cliente_CPF_Cliente = '02504209853';
+delete from contato where fk_Cliente_CPF_Cliente = '02504209853';
     
 /*criando, inserinfo, atualizando  delenado as informações das Reservas*/
 create table if not exists reserva (
 	Numero_Reserva int auto_increment primary key,
     Data_Reserva date not null,
     Valor_Reserva decimal(10,2) not null,
-    Forma_Pagamento varchar(40) not null,
+    Forma_Pagamento varchar(20) not null,
     fk_Cliente_CPF_Cliente varchar(14),
     fk_Destino_Id_Destino int,
     constraint foreign key (fk_Cliente_CPF_Cliente) references Cliente(CPF_Cliente) on delete cascade on update cascade,
@@ -63,6 +66,7 @@ VALUES
     ('23-12-12', 2000.00, 'pix', '02504209853', 1);
 
 select * from reserva;
+select * from reserva where Numero_Reserva = '1';
 update reserva set Data_Reserva = '2023-11-26', Valor_Reserva ='1150.00', Forma_Pagamento = 'pix' 
 where Numero_Reserva = 1;
 delete from reserva where Numero_Reserva = '1';
